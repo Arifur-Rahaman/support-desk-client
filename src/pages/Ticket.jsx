@@ -6,7 +6,7 @@ import { closeTicket, getTicket } from '../features/tickets/ticketSlice';
 import { toast } from 'react-toastify'
 import { Button, CircularProgress, Paper, Stack, Typography } from '@mui/material'
 import { Container } from '@mui/system';
-import {getNotes, reset as noteReset} from '../features/notes/notesSlice'
+import {getNotes} from '../features/notes/notesSlice'
 import NoteItem from '../components/NoteItem';
 import NoteModal from '../components/NoteModal';
 
@@ -14,10 +14,6 @@ const Ticket = () => {
     const { ticketId } = useParams()
     const { isError, isLoading, message, ticket } = useSelector(state => state.tickets)
     const {isLoading: isNotesLoading, notes } = useSelector(state => state.notes)
-
-    const ticket1 = {...useSelector(state => state.tickets.ticket)}
-    ticket1.xyz = 'xyz'
-    console.log(ticket1)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 

@@ -6,14 +6,15 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
-import { Grid, Stack, TextField } from '@mui/material';
+import {Stack, TextField } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { createNote } from '../features/notes/notesSlice';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    width: '500px',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'background.paper',
     border: '2px solid #000',
@@ -22,6 +23,9 @@ const style = {
 };
 
 const NoteModal = ({ ticketId }) => {
+    const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
+
     const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -64,7 +68,10 @@ const NoteModal = ({ ticketId }) => {
                 }}
             >
                 <Fade in={open}>
-                    <Box component='form' sx={style} onSubmit={onNoteSubmit}>
+                    <Box component='form' 
+                    sx={{...style, width: matches? '80%': '500px'}} 
+                    onSubmit={onNoteSubmit}
+                    >
                         <Stack spacing={2}>
                             <Stack direction='row' justifyContent='space-between' alignItem='center'>
                                 <Typography variant='h6'>Add Note</Typography>
